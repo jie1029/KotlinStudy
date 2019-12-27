@@ -79,9 +79,6 @@ class WebtoonFragment : Fragment() {
 
         mySingleton.addToRequest(stringRequest)
 
-        //mQueue.add(stringRequest)
-
-        //val r = root.findViewById<RecyclerView>(R.id.recyclerView)
         root.recyclerView.apply{
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity)
@@ -96,7 +93,7 @@ class WebtoonFragment : Fragment() {
     private fun drawList(){
         val items = mResult?.getJSONArray("list") ?: return
 
-        mArray.clear() //기존에 있던걸 다 지워야 똑같은것이 쌓이지 않는다.
+        mArray.clear()
 
         for(i in 0 until items.length()){
             val item = items[i] as JSONObject
@@ -111,7 +108,7 @@ class WebtoonFragment : Fragment() {
 
         }
 
-        mAdapter.notifyDataSetChanged()//얘를 해야 리스트가 다시 그려진다.
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun onStop() {
@@ -129,17 +126,13 @@ class WebtoonFragment : Fragment() {
 
         override fun getItemCount(): Int {
             return mArray.size;
-//            return 31;
+
         }
 
         override fun onBindViewHolder(holder: holder, position: Int) {
             holder.txTitle.text =  mArray[position].title
             holder.txAuthor.text = mArray[position].author
             holder.imImage.setImageUrl("${SERVER_URL}${mArray[position].image}",mImageLoader)
-
-//            holder.txTitle.text = "test"
-//                holder.txAuthor.text = "test"
-//            holder.imImage.setImageUrl("${SERVER_URL}image/임채현.jpg",mImageLoader)
 
 
         }
